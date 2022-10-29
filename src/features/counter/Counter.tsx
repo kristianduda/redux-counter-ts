@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { ActionCreators } from "redux-undo";
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import styles from './Counter.module.css';
 import {
   decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
-  selectCount,
+  increment, incrementAsync, incrementByAmount, incrementIfOdd,
+  selectCount
 } from './counterSlice';
-import styles from './Counter.module.css';
 
 export function Counter() {
   const count = useAppSelector(selectCount);
@@ -35,6 +33,20 @@ export function Counter() {
           onClick={() => dispatch(increment())}
         >
           +
+        </button>
+        <button
+          className={styles.button}
+          aria-label="Undo last change"
+          onClick={() => dispatch(ActionCreators.undo())}
+        >
+          Undo
+        </button>
+        <button
+          className={styles.button}
+          aria-label="Undo last change"
+          onClick={() => dispatch(ActionCreators.redo())}
+        >
+          Redo
         </button>
       </div>
       <div className={styles.row}>
